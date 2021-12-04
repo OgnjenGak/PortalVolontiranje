@@ -1,0 +1,86 @@
+Git:
+	
+	- version control system
+		- https://git-scm.com/
+	
+	- Git Bash
+	- Git GUI
+	
+	- GitHub
+		- https://github.com/
+	- GitLab
+	- Bitbucket
+	- ...
+	
+	- README.md
+		- https://guides.github.com/features/mastering-markdown/
+	
+	- git --version
+	- git --help
+
+	- Prvi repozitorijum:
+		
+		- GitHub: New repository
+		
+		- ssh-keygen
+		- cd ~/.ssh
+		- cat id_rsa.pub
+		- cat id_rsa.pub | clip
+		
+		- GitHub: Settings -> SSH and GPG keys -> New SSH key
+		
+		- git config --global user.name "korisnicko_ime"
+		- git config --global user.email adresa@email.com
+		
+		- cd ~/Desktop
+		- cd undp_github
+		- git clone git@github.com:aleksasrbljanovic/undp-github.git
+		
+		- Folder: View -> Hidden items
+	
+		- cd undp-github
+		
+		- Folder: Promena datoteke README.md
+		
+		- git status
+		
+		- Folder: Dodavanje datoteke helloworld.py
+		
+		- git status
+		- git add .
+		- git add helloworld.py
+		- git status
+		- git commit -m "Naslov poruke" -m "Telo poruke"
+		- git status
+		- git push origin main
+		- git pull origin main
+
+	- Drugi repozitorijum:
+	
+		- git init
+		- git add .
+		- git commit -m "Prvi commit"
+		- git push origin master
+		
+		- GitHub: New repository
+		
+		- git remote add origin git@github.com:aleksasrbljanovic/undp-desktop.git
+		- git push origin master
+	
+	- Grananje i spajanje:
+	
+		- git branch
+		- git checkout -b privremena
+		- git checkout master
+		
+		- GitHub: Compare & pull request
+		- GitHub: Merge pull request
+		
+		- git checkout -d privremena
+	
+	- Resetovanje:
+	
+		- git reset
+		- git reset HEAD~1
+		- git log
+		- git reset ...

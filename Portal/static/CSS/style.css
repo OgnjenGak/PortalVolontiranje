@@ -1,0 +1,105 @@
+body {
+	margin: 0px;
+	font-family: serif;
+	background-color: #ebe2d4;
+}
+
+.header {
+	padding: 40px;
+	background-color: #fd6a6a;
+	background-size: cover;
+	color: rgb(37, 35, 34);
+	text-align: center;
+	
+}
+h1 {
+	font-family: arvo;
+	font-size: 60px;
+	transform:skew(-20deg,0);
+}
+
+h1:hover{
+	background-color: rgb(175, 6, 6);
+	color: white;
+}
+
+.nav{
+    background-color: lightblue;
+    padding: 15px;
+    font-family: Scope One;
+}
+
+h4 {
+	font-family: cormorant;
+}
+
+* {
+	box-sizing: border-box;
+}
+.column {
+	float: left;
+	padding: 20px;
+}
+.side {
+	width: 20%;
+}
+.main {
+	width: 60%;
+}
+p {
+	text-align: justify;
+}
+.main p {
+	text-indent: 50px;
+}
+
+.banner {
+	width: 100%;
+	margin-bottom: 15px;
+	border: 2px solid crimson;
+	
+}
+
+img:hover{
+	transform: scale(1.2);
+}
+
+.content::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.footer {
+	background-color: #fd6a6a;
+	padding: 20px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-family: Scope One;
+
+}
+
+.footer:hover{
+    background-color: #8B0000;
+}
+
+#insta{
+    border-radius: 50%;
+    width: 50px;
+    text-decoration: none;
+}
+
+#fb{
+    border-radius: 50%;
+    width: 50px;
+}
+
+.oNama{
+text-align: justify;
+font-weight: bolder;
+font-style: none;
+font-family: Tisa;
+}
+
+

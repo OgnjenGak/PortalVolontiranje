@@ -1,0 +1,28 @@
+{% extends 'Portal_Za_Volontiranje.html' %}
+{% load static%}
+
+{% block body %}
+
+<div class="maindiv jumbotron col-md-6 container border border-info border-3 rounded ">
+
+    <form class="p-2" method="POST"  action="{% url 'forum:kreiranjeDiskusije' %}">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-2">
+            <label for="{{ field.auto_id }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+            <div class="text-danger">
+                {{ field.errors }}
+            </div>
+        </div>
+        {% endfor %}
+        <center>
+            <input class="btn btn-success" type="submit" value="Креирај дискусију">
+        </center>
+    </form>
+
+</div>
+
+
+
+{% endblock %}

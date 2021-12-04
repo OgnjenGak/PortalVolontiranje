@@ -1,0 +1,43 @@
+{% extends 'Portal_Za_Volontiranje.html' %}
+{% load static%}
+
+{% block body %}
+
+
+<div class="jumbotron border col-md-6 border-3 border-info p-3 rounded mx-auto">
+    <div class="col-sm mx-auto">
+        <center><h3>Пријава</h3></center>
+        {% if form.errors %}
+        <div class="text-danger">
+            <div class="danger">Молимо Вас, упишите важеће креденцијале, обратите пажњу на велика и мала слова.</div>
+        </div>
+        {% endif %}
+        <form method="POST" action="">
+            {% csrf_token %}
+            <p><input class="form-control" type="text" name="username" placeholder="Упишите корисничко име или имејл адресу..."></p>
+            <p><input class="form-control" type="password" name="password" placeholder="Лозинка..."></p>
+            <center>
+                <input class="btn btn-success" type="submit" value="Улогујте се">
+            </center>
+            <br><br>
+
+            <div>
+                <center>Немате налог? <br>
+                    <a style="text-decoration:none" href='{% url "register" %}'>
+                        Региструјте се.
+                    </a>
+                </center>
+            </div>
+            <div>
+                <center>Заборавили сте лозинку? <br>
+                    <a style="text-decoration:none" href='{% url "reset_password" %}'>
+                        Подесите нову.
+                    </a>
+                </center>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
+

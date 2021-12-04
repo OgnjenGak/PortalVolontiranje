@@ -1,0 +1,57 @@
+{% extends "Portal_Za_Volontiranje.html" %}
+
+{% block title %}
+{{ anketa.naziv_ankete }}
+{% endblock %}
+
+{% block body %}
+
+<div class="card alert alert-secondary">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col text-center">
+            {{ anketa.naziv_ankete }}
+        </div>
+        <div class="col text-end">
+            {{ anketa.autor_ankete }}
+        </div>
+    </div>
+        <hr>
+    <div>
+        <center><span>{{ anketa.pitanje }}</span></center>
+    </div>
+    <div>
+
+    </div>
+</div>
+
+<!--{{ odgovori.count }}-->
+{% if user.volonter or user.is_staff %}
+{% if odg_vol %}
+<p class="text-center">Хвала Вам што сте одговорили на наше питање.</p>
+{% else %}
+{% if form %}
+<form method="post" action="{% url 'ankete:anketa' %}">
+    {% csrf_token %}
+    <input type="hidden" id="id" name="id" value="{{ anketa.id }}"/>
+    {% for field in form %}
+    <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+    <div class="my-3">{{ field }}</div>
+    <div class="text-danger" id="{{ field.auto_id }}_errors">
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <div class="text-center">
+        <input class="btn btn-success" type="submit" value="Одговорите">
+    </div>
+</form>
+{% else %}
+<p class="text-center">Хвала Вам што сте одговорили на наше питање.</p>
+{% endif %}
+{% endif %}
+{% endif %}
+
+
+
+
+{% endblock %}

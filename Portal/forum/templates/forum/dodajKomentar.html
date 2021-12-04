@@ -1,0 +1,16 @@
+{% for komentar in komentari %}
+<tr>
+    <td>
+        {% if komentar.autor.volonter %}
+        {{ komentar.autor.first_name }} {{ komentar.autor.last_name }}
+        {% elif komentar.autor.organizacija %}
+        {{ komentar.autor.username }}
+        {% else %}
+        {{ komentar.autor }}
+        {% endif %}
+        -
+        {{ komentar.datum }}
+    </td>
+    <td>{{ komentar.sadrzaj }}</td>
+</tr>
+{% endfor %}

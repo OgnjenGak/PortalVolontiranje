@@ -1,0 +1,98 @@
+{% extends "Portal_Za_Volontiranje.html" %}
+
+{% block title %}
+{{ diskusija.naziv }}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col card border border-2">
+        <div class="text-center">
+            <h6><strong>{{ diskusija.naziv }}</strong></h6>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col text-center">
+                {{ diskusija.kategorija }}
+            </div>
+            <div class="col text-end">
+                <p class="text-end">
+                    {% if diskusija.autor.volonter %}
+                    {{ diskusija.autor.first_name }} {{ diskusija.autor.last_name }}
+                    {% elif diskusija.autor.organizacija %}
+                    {{ diskusija.autor.naziv }}
+                    {% else %}
+                    {{ diskusija.autor }}
+                    {% endif %}
+
+                    - {{ diskusija.datum }}
+                </p>
+            </div>
+        </div>
+
+        <div class="border border-3 text-justify rounded">
+            <p class="text-justify p-2">{{ diskusija.tekst }}</p>
+        </div>
+        <div style=" overflow: auto;">
+            <table class="table">
+                <thead>
+                <th>Корисник</th>
+                <th>Коментар</th>
+                </thead>
+                <tbody id="tbody">
+                {% for komentar in diskusija.komentar_set.all %}
+                <tr>
+                    <td>
+                        {% if komentar.autor.volonter %}
+                        {{ komentar.autor.first_name }} {{ komentar.autor.last_name }}
+                        {% elif komentar.autor.organizacija %}
+                        {{ komentar.autor.username }}
+                        {% else %}
+                        {{ komentar.autor }}
+                        {% endif %}
+                        -
+                        {{ komentar.datum }}
+                    </td>
+                    <td>{{ komentar.sadrzaj }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%  if user.is_authenticated %}
+<div class="row">
+    <div class="col">
+        <script>
+            var url = "{% url "forum:dodajKomentar" %}";
+
+        </script>
+        <form method="post" action="{% url 'forum:diskusija' %}">
+            {% csrf_token %}
+            <input type="hidden" id="id" name="id" value="{{ diskusija.id }}"/>
+            {% for field in form %}
+            <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+            <div class="my-3">{{ field }}</div>
+            <div class="text-danger" id="{{ field.auto_id }}_errors">
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+            <button type="button" class="btn btn-primary" onclick="addComment(url);">Додај коментар</button>
+        </form>
+    </div>
+</div>
+{% load static %}
+<script src="{% static 'forum/script.js' %}"></script>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

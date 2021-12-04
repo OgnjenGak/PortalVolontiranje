@@ -1,0 +1,181 @@
+{% extends "Portal_Za_Volontiranje.html" %}
+
+{% block title %}
+Početna stranica
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="diskusije-tab" data-bs-toggle="tab" data-bs-target="#diskusije"
+                        type="button"
+                        role="tab" aria-controls="diskusije" aria-selected="true">Дискусије
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="oglasi-tab" data-bs-toggle="tab" data-bs-target="#oglasi" type="button"
+                        role="tab" aria-controls="oglasi" aria-selected="false">Огласи
+                </button>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ankete-tab" data-bs-toggle="tab" data-bs-target="#ankete" type="button"
+                        role="tab" aria-controls="ankete" aria-selected="false">Анкете
+                </button>
+                {% endif %}
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="diskusije" role="tabpanel" aria-labelledby="diskusije-tab">
+                <div class="col">
+
+                    <h3>Тренутно има {{ diskusije.count }} дискусија.</h3>
+                </div>
+                {%  if user.is_authenticated %}
+                <div>
+                    <center>
+                        <a class="btn-success user btn m-2" href="{% url 'forum:kreiranjeDiskusije' %}">
+                            Започни нову дискусију
+                        </a>
+                    </center>
+                </div>
+                {% endif %}
+                <table class="table table-striped">
+                    <thead class="bg-secondary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Категорија</th>
+                        <th scope="col">Назив дискусије</th>
+                        <th scope="col">Датум</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for diskusija in diskusije %}
+                    <tr>
+                        <td>{{ diskusija.id }}</td>
+                        <td>
+                            {{ diskusija.kategorija}}
+                        </td>
+                        <td>
+                            <a class="text-decoration-none" href="{% url 'forum:diskusija' %}?id={{ diskusija.id }}">{{ diskusija.naziv }}</a>
+                        </td>
+                        <td>
+                            {{ diskusija.datum }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
+
+                <div>
+                    {% block test %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="oglasi" role="tabpanel" aria-labelledby="oglasi-tab">
+                <div class="col">
+                    <h3>Тренутно има {{ oglasi.count }} огласа.</h3>
+                </div>
+                {% if user.organizacija %}
+                <div>
+                    <center><a class="btn-success user btn m-2" href="{% url 'oglasi:postavljanjeOglasa' %}">Постави
+                        оглас</a>
+                    </center>
+                </div>
+                {% endif %}
+                <table class="table table-striped">
+                    <thead class="bg-warning">
+                    <tr>
+                        <th>#</th>
+                        <th>Назив</th>
+                        <th>Датум и време постављања</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for oglas in oglasi %}
+                    <tr>
+                        <td>{{ oglas.id }}</td>
+                        <td>
+                            <a class="text-decoration-none" href="{% url 'oglasi:detaljiOglasa' oglas.id %}">{{ oglas.naslov }}</a>
+                        </td>
+                        <td>{{ oglas.datum }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="ankete" role="tabpanel" aria-labelledby="ankete-tab">
+                {% if user.is_authenticated %}
+                {% if user.volonter %}
+                {% else %}
+                <div>
+                    <center><a class="btn-success user btn m-2" href="{% url 'ankete:kreiranjeAnkete' %}">Креирајте
+                        анкету</a>
+                    </center>
+                </div>
+                {% endif %}
+                {% endif %}
+
+                <table class="table table-striped">
+                    <thead class="bg-info">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Назив анкете</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for anketa in ankete %}
+                        <tr>
+                        <td> {{ anketa.id }} </td>
+                        <td>
+                            <a class="text-decoration-none" href="{% url 'ankete:anketa' %}?id={{ anketa.id }}">{{ anketa.naziv_ankete }}</a>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block adminlist %}
+<div>
+    <center>
+        <button type="button" class="btn btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Контактирај администратора
+        </button>
+    </center>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Листа администратора</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% for admin in administratori %}
+                <p>
+                    {{ admin.username }}: {{ admin.email }}
+                </p>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Затвори</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

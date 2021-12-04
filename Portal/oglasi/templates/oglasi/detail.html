@@ -1,0 +1,23 @@
+{% extends "Portal_Za_Volontiranje.html" %}
+{% block title %}
+{{ oglasi.naslov }}
+{% endblock %}
+{% block body %}
+<div class="card alert">
+    <div class="text-center">{{ oglasi.naslov }}</div>
+
+    <hr>
+
+    <div class="card-body">
+
+        <div class="border border-3 text-justify rounded">
+            <p class="text-justify p-2">{{ oglasi.tekst }}</p>
+        </div>
+
+        <div>
+            <span class="">Датум постављања: {{oglasi.datum}}</span><br>
+            <span class="">Аутор: {{ oglasi.autor }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

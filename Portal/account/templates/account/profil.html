@@ -1,0 +1,71 @@
+{% extends 'Portal_Za_Volontiranje.html' %}
+{% load static%}
+
+{% block body %}
+
+<div class="card p-4 alert alert-warning">
+    <div class="row my-2">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="image d-flex flex-column justify-content-center align-items-center my-4">
+                {% if user.volonter.slika %}
+                <img class="rounded" src="{{ user.volonter.slika.url }}" width=auto height="200px"/>
+                {% else %}
+                <img class="rounded" src="/media/image/noimage.jpg" width=auto height="200px"/>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <b>Име и презиме: </b>
+                </div>
+                <div class="col-8">
+                    {{ user.first_name }} {{ user.last_name }}
+                </div>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-4">
+                    <b>Имејл: </b>
+                </div>
+                <div class="col-8">
+                    {{ user.email }}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-4">
+                    <b>Адреса: </b>
+                </div>
+                <div class="col-8">
+                    {{ user.volonter.drzavljanstvo }}, {{ user.volonter.mesto}}, {{ user.volonter.ulica}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-4">
+                    <b>Интересовања: </b>
+                </div>
+                <div class="col-8">
+
+                    {% if dugme %}
+                        <center>
+                            <a class="btn-success user btn m-2" href="{% url 'kreiranjeDodatnihPodataka' %}">
+                                Уреди интересовања
+                            </a>
+                        </center>
+                    {% else %}
+                    {% for interesovanje in interesovanja %}
+                    {{ interesovanje }}<br>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+
+{% endblock %}

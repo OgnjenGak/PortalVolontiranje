@@ -1,0 +1,25 @@
+{% extends 'Portal_Za_Volontiranje.html' %}
+{% load static%}
+
+{% block body %}
+
+<div class="maindiv jumbotron col-md-6 container border border-info border-3 rounded ">
+
+    <form method="POST"  action="{% url 'kreiranjeDodatnihPodataka' %}">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-2">
+            <label for="{{ field.auto_id }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+            <div class="text-danger">
+                {{ field.errors }}
+            </div>
+        </div>
+        {% endfor %}
+        <input class="btn btn-success btn-lg" type="submit" value="Додај податке">
+    </form>
+
+</div>
+
+
+{% endblock %}
