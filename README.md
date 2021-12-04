@@ -1,2 +1,2 @@
 # PortalVolontiranje
- Projekat
+ Zavrsni projekat programa prekvalifikacije za IT
